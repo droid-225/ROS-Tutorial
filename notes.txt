@@ -1,0 +1,84 @@
+WSL Installation:
+https://learn.microsoft.com/en-us/windows/wsl/install
+
+1. Open PowerShell in Admin Mode
+
+2. Run:
+
+    wsl --install
+
+3. Restart Computer
+
+4. (Optional) To see available linux distros, run:
+
+    wsl --list --online
+
+5. Install distro:
+
+    wsl --install Ubuntu-22.04
+
+6. Create username and password
+
+7. Verify version by running:
+
+    wsl -l -v
+
+   Version should be 2.
+
+Install WSL Extension in VSCode
+
+Open Ubuntu, run:
+
+    code .
+
+ROS2 Humble Installation:
+https://docs.ros.org/en/humble/Installation.html
+
+In VSCode bash terminal:
+
+1. Locale Configuration
+
+    locale  # Check current locale settings
+    sudo apt update && sudo apt install locales
+    sudo locale-gen en_US en_US.UTF-8
+    sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+    export LANG=en_US.UTF-8
+    locale  # Confirm updated locale settings
+
+2. Software Properties and Universe Repository
+
+    sudo apt install software-properties-common
+    sudo add-apt-repository universe
+
+3. Curl Installation and ROS Key
+
+    sudo apt update && sudo apt install curl -y
+    sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+
+4. ROS2 Sources Configuration
+    
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+5. Update and Upgrade
+  
+    sudo apt update
+    sudo apt upgrade
+
+6. ROS Desktop Installation
+
+    sudo apt install ros-humble-desktop
+
+7. ROS Environment Setup
+
+    source /opt/ros/humble/setup.bash
+
+8. ROS2 Command Check
+
+    ros2 
+
+
+Sourcing Setup.bash
+
+Go to .bashsrc in VSCode, add the following line at the end:
+
+    source /opt/ros/humble/setup.bash
