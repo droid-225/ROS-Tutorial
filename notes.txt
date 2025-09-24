@@ -130,3 +130,31 @@ To run turtlesim node:
 To run turtlesim teleop mode (controlable mode):
 
     ros2 run turtlesim turtle_teleop_key
+
+/////////////////////////////////////////////////////////////////////////////
+NOTE: 
+    The way ROS works is that it sends and recieves data between nodes,
+    basically executables, through different ways like topics, services,
+    and actions.
+/////////////////////////////////////////////////////////////////////////////
+
+ROS2 Node Commands:
+
+1. See ros2 node help:
+
+    ros2 node -h
+
+2. List currently running nodes:
+
+    ros2 node list
+
+3/4. Run the turtlesim node and try previous command.
+
+5. See node info:
+
+    ros2 node info <node_name>
+
+    for turtlesim:
+
+    ros2 node info /turtlesim
+
