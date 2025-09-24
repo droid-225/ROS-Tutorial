@@ -82,3 +82,51 @@ Sourcing Setup.bash
 Go to .bashsrc in VSCode, add the following line at the end:
 
     source /opt/ros/humble/setup.bash
+
+#############################################################################################################
+The following will be in VSCode after opening it with "code ." using Ubuntu or connecting to WSL from VSCode.
+#############################################################################################################
+
+Running Executables
+
+    sudo apt update
+    sudo apt install ros-humble-turtlesim
+
+See list of packages:
+
+    ros2 pkg list
+
+See list of <packages, executables>:
+
+    ros2 pkg executables
+
+See list of executables from turtlesim packages
+
+    ros2 pkg executables turtlesim
+
+[Optional] To find turtlesim:
+
+        cd /opt/ros/humble
+        code .
+        ctrl + p
+        search: turtlesim
+
+It should be in: share/ament_index/resourse_index/packages
+
+Running turtlesim:
+
+To see options:
+
+    ros2 run -h
+
+To run an executable from a package:
+
+    ros2 run <package_name> <executable_name>
+
+To run turtlesim node:
+
+    ros2 run turtelsim turtelsim_node
+
+To run turtlesim teleop mode (controlable mode):
+
+    ros2 run turtlesim turtle_teleop_key
