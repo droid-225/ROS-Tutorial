@@ -280,4 +280,67 @@ To call a service:
     by default, this spawns the turtle off screen near the bottom left hand corner (you need to enlarge the screen to see it).
 
 
+ROS Parameters
 
+To see list of parameters:
+
+    ros2 param list
+
+To get parameter values:
+
+    ros2 param get <node_name> <parameter_name>
+
+    for example,
+
+    ros2 param get /turtlesim background_g
+
+    this shows the value for the window's background green value.
+
+To set a parameter's value:
+
+    ros2 param set <node_name> <parameter_name> <value>
+
+    for example,
+
+    ros2 param set /turtlesim background_g 255
+
+    this sets the background_g value to 255.
+
+To view all the parameters for a node:
+
+    ros2 param dump <node_name>
+
+    for example,
+
+    ros2 param dump /turtlesim 
+
+    this shows all the parameters and their values for the turtlesim node.
+
+To store these values in a yaml file:
+
+    ros2 param dump <node_name> > <yaml_file_name>.yaml
+
+    for example,
+
+    ros2 param dump /turtlesim > turtlesim.yaml
+
+    this saves the parameters and their values in a yaml file.
+
+To load parameters from a yaml file:
+
+    ros2 param load <node_name> <yaml_file>.yaml
+
+    for example,
+
+    ros2 param load /turtlesim turtlesim.yaml
+
+    this loads the parameter values in the yaml file into the turtlesim node.
+
+To load the parameters on startup:
+
+    ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
+
+    for example,
+
+    ros2 run turtlesim turtlesim_node --ros-args --params-file turtlesim.yaml
+    
