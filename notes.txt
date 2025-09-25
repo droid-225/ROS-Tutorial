@@ -343,4 +343,43 @@ To load the parameters on startup:
     for example,
 
     ros2 run turtlesim turtlesim_node --ros-args --params-file turtlesim.yaml
-    
+
+
+ROS Actions:
+Actions also uses the server and client model but is slightly different.
+With the data, the action also contains a goal, feedback, and results.
+
+In the turtlesim, the rotation letters are actions.
+You can see the action clients in node info at the bottom:
+
+    ros2 node info /teleop_turtle
+
+To see all the actions:
+
+    ros2 action list
+
+    to see the type:
+
+    ros2 action list -t
+
+To see action info:
+
+    ros2 action info <action_name>
+
+    for example,
+
+    ros2 action info /turtle1/rotate_absolute
+
+To see datat type for action:
+
+    ros2 interface show turtlesim/action/RotateAbsolute
+
+To send action goal:
+
+    ros2 action send_goal <action_name> <action_type> <goal>
+
+    for example,
+
+    ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 1.57}"
+
+
