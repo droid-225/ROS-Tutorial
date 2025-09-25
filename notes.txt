@@ -158,7 +158,15 @@ ROS2 Node Commands:
 
     ros2 node info /turtlesim
 
+#############################################################################################################
+The following commands may only work as intended if the required turtlesim nodes are active.
+See commands in previous section for how to start them if you don't remember.
+#############################################################################################################
+
 ROS Topic:
+Topics are connections between two nodes, like a publisher node and a subscriber node.
+The publisher node sends data to a topic, or publishes it to the topic, and the subscriber node recieves that published data from the topic.
+Here, there is always a stream of data being continuously published or subscribed.
 
 To see list of topics:
     
@@ -212,5 +220,64 @@ View topic frequency:
     for the turtlesim pose topic:
 
     ros2 topic hz /turtle1/pose
+
+
+ROS Service
+In services, data is not continuously published.
+The service connects the server node and client node.
+The client requests data and the server needs to respond before the client can recieve the data.
+
+List all service names:
+
+    ros2 service list
+
+    To see the service types:
+    ros2 service list -t
+
+Another way to view service type:
+
+    ros2 service type <service_name>
+
+    for example,
+
+    ros2 service type /clear
+
+    this would return the service type of the /clear service.
+
+To find services with a specific type:
+
+    ros2 service find <service_type>
+
+    for example,
+
+    ros2 service find std_srvs/srv/Empty
+
+    this returns all services with the type 'std_srvs/srv/Empty'.
+
+To see interface:
+
+    ros2 interface show <service_type>
+
+    for example,
+
+    ros2 interface show turtlesim/srv/Spawn
+
+    this basically just shows you the basic data related to the service type, like its variables.
+
+To call a service:
+
+    ros2 service call <service_name> <service_type>
+
+    for example,
+
+    ros2 service call /clear std_srvs/srv/Empty
+
+    this calls the clear service to clear the screen of the path made by the turtle.
+
+    ros2 service call /spawn turtelsim/srv/Spawn "{x: 2, y: 2, theta: 0.2, name: ''}"
+
+    this calls the spawn service to create a new turtle at the specified location.
+    by default, this spawns the turtle off screen near the bottom left hand corner (you need to enlarge the screen to see it).
+
 
 
