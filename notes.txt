@@ -79,7 +79,7 @@ In VSCode bash terminal:
 
 Sourcing Setup.bash
 
-Go to .bashsrc in VSCode, add the following line at the end:
+Go to .bashrc in VSCode, add the following line at the end:
 
     source /opt/ros/humble/setup.bash
 
@@ -383,3 +383,88 @@ To send action goal:
     ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 1.57}"
 
 
+ROS Workspace
+Holds all the files that we want to build and run.
+You can have more than one workspace at the same level in the file directory.
+The src (source) folder will contain all of our packages.
+
+Colcon is a build tool that we use to build our packages.
+
+1. Install colcon:
+
+    sudo apt install python3-colcon-common-extensions
+
+2. Create the workspace and navigate to it:
+
+    mkdir -p ~/ros2_ws/src
+    cd ~/ros2_ws
+
+3. [Optional] Add some source code to test building:
+
+    git clone https://github.com/ros/ros_tutorial.git -b humble
+
+4. Setup colcon tab completion:
+
+    echo "source /user/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
+
+5. Build with colcon from ~/ros2_ws:
+
+    colcon build --symlink-install
+
+    This creates symbolic links (symlinks) to the original files in the source or build directories instead of making copies.
+
+6. [Optional] See the folders that were created:
+
+    ls
+
+7. Source overlay from ~/ros2_ws:
+
+    source install/local_setup.bash
+
+8. Run node:
+
+    ros2 run turtlesim turtlesim_node
+
+9. To verify you are modifying your package and not the previous one, edit the name of the window.
+   
+    ctrl + p
+    search turtle_frame.cpp
+    modify line 52 (or where ever the setWindowTitle() funciton is) to whatever you want.
+
+10. Rebuild, source, then run:
+
+    colcon build --symlink-install
+    source install/local_setup.bash
+    ros2 run turtlesim turtlesim_node
+
+
+How to create your own package:
+
+prereq: install colcon and create your workspace.
+
+1. Create package from ~/ros2_ws/src:
+
+    ros2 pkg create --build-type ament_cmake --node-name <node_name> <package_name>
+
+    for example,
+
+    ros2 pkg create --build-type ament_cmake --node-name my_node my_package
+
+2. Check the files and folders that it made:
+
+    include/my_package
+    src/my_node.cpp
+    CMakeLists.txt
+    package.xml
+
+3. Build that package from ~/ros2_ws:
+
+    colcon build --packages-select my_package
+
+4. Source:
+
+    source install/local_setup.bash
+
+5. Run Node:
+
+    ros2 run my_package my_node
