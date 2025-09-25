@@ -158,3 +158,59 @@ ROS2 Node Commands:
 
     ros2 node info /turtlesim
 
+ROS Topic:
+
+To see list of topics:
+    
+    ros2 topic list
+
+    to see details:
+
+    ros2 topic list -t
+
+Start rqt graph, uncheck hide boxes to see hidden topics:
+
+    rqt_graph
+
+To see topic output:
+
+    ros2 topic echo <topic_name>
+
+    for turtlesim, to see the cmd_velocity:
+
+    ros2 topic echo /turtle1/cmd_vel
+
+To see interface definition:
+
+    ros2 interface show <type>
+
+    ros2 interface show geometry_msgs/msg/Twist
+
+Publish data to a topic:
+
+    ros2 topic pub <topic_name> <msg_type> '<args>'
+
+    To publish movement data to turtlesim:
+
+    ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}"
+
+    here, the --once option runs the publish once to the topic.
+    To publish the data at a specific rate continuously:
+
+    ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}"
+
+    here, the --rate sets how many hertz, or how many times a second the topic is published to.
+
+Echo the pose topic:
+
+    ros2 topic echo /turtle1/pose
+
+View topic frequency:
+
+    ros2 topic hz <topic_name>
+
+    for the turtlesim pose topic:
+
+    ros2 topic hz /turtle1/pose
+
+
