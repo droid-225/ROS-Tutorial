@@ -506,3 +506,37 @@ Publisher and Subscriber C++
     cd ~/ros2_ws
     source install/setup.bash
     ros2 run cpp_pubsub listener
+
+
+Publisher and Subscriber python3
+
+1. Create package from ~/ros2_ws/src:
+
+    cd ~/ros2_ws/src
+    ros2 pkg create --build-type ament_python py_pubsub
+
+2. Make the publisher_memeber_function.py and subscriber_member_function.py files in the py_pubsub sub folder of the py_pubsub package.
+
+3. Update package.xml (add the ADDED section)
+
+4. Update setup.py (add the ADDED section)
+
+5. [Optional] Check for missing dependencies from ~/ros2_ws:
+
+    rosdep install -i --from-path src --rosdistro humble -y
+
+6. Build with colcon from ~/ros2_ws:
+
+    colcon build --packages-select py_pubsub
+
+7. In one terminal, run the talker from ~/ros2_ws:
+
+    cd ~/ros2_ws
+    source install/setup.bash
+    ros2 run py_pubsub talker
+
+8. In another terminal, run the listener from ~/ros2_ws:
+
+    cd ~/ros2_ws
+    source install/setup.bash
+    ros2 run py_pubsub listener
