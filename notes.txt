@@ -540,3 +540,156 @@ Publisher and Subscriber python3
     cd ~/ros2_ws
     source install/setup.bash
     ros2 run py_pubsub listener
+
+#############################################################################################################
+#############################################################################################################
+
+URDF Files
+
+URDF (Unified Robotics Description Format) File: and .xml file used to describe the visual, physics, and connections
+of a robot with joints and links.
+It has two sections: link and joint
+
+The general structure is as such:
+<?xml version="1.0"?>
+<robot name="robot_name">
+    <link name="link_name">
+        <visual>
+        </visual>
+
+        <collision>
+        </collision>
+
+        <inertial>
+        </inertial>
+    </link>
+
+    <joint name="join_name" ...>
+        <axis .../>
+        <parent link .../>
+        <child link .../>
+        <origin .../>
+    </joint>
+</robot>
+
+
+Links in URDF Files
+
+Used to describe a segment of a robot, where you can define the visual, collision, and inertial properties. The geometry
+and origin properties are used in visual and collision properties to describe the shape and location of the link.
+
+General Structure:
+<link name="link_name">
+    <visual> // optional
+        <geometry> // required (if there is a visual)
+            // geometry specific code
+        </geometry>
+        <origin rpy="r p y" xyz="x y z"/> // optional
+        <material name="color_name"/> // optional
+    </visual>
+
+    <collision> // optional
+        <geometry> // required (if there is a visual)
+            // geometry specific code
+        </geometry>
+        <origin rpy="r p y" xyz="x y z"/> // optional
+    </collision>
+
+    <inertial> // optional
+        <mass value = "mass_in_kg"/>
+        <inertia
+            ixx="ixx" ixy="ixy" ixz="ixz"
+            iyy="iyy" iyz="iyz" izz="izz"/>
+    </inertial>
+</link>
+
+Visual
+The visual is used to describe the geometry of the link. Usually this can be an accurate representation of the robot or just
+a simplified version depending on the goal. For accurate models, one can obtain the model from a 3D modeling software and export
+the .stl files for the geometry.
+
+Types of Geometries in URDF File:
+Units for the geometries are in SI units, so meters for all lengths. For the mesh, the file types can be .stl or .dae files.
+
+Geometry            Geometry Specific Code
+box                 <box size="x y z"/>
+sphere              <sphere radius="r"/>
+cylinder            <cylinder radius="r" length="l"/>
+mesh                <mesh filename="file_path" scale="x y z"/>
+
+Origin (rpy and xyz):
+Used to define the rotation (radians) using roll (x), pitch (y), yaw (y) and the translation (meters) using x, y, z relative to the 
+link's coordinate frame. The order of rotation for rpy is ZYX, so first rotate about X axis, then Y axis and finally Z axis.
+The rotation operation is applied first and then the translation.
+
+For visual and collision, origin describes how the geometry is transformed relative to the link's frame.
+
+For inertial, origin describes the location of the center of mass relative to the link's frame.
+
+Axis Colors:
+Axis    Color
+X       Red 
+Y       Green 
+Z       Blue
+
+Material:
+Used to define the colors and transparency of the color by using rgba, normalized between 0 and 1.
+
+<material name="color_name">
+    <color rgba="r g b a"/>
+</material>
+
+Common Colors:
+color_name          r g b a 
+red                 1 0 0 1
+green               0 1 0 1
+blue                0 0 1 1
+yellow              1 1 0 1
+cyan                0 1 1 1
+
+Collision
+Used to describe a bounding shape around the link for collision detection. This is usually done using simple shapes
+for faster calculation when detecting collisions between other collsion bounding shapes.
+
+Inertial
+Used to describe the inertia (kg * m^2) about the link's center of mass and the mass (kg) of the link.
+
+
+Joints in URDF Files
+Used to describe the connections between two links, a parent link and a child link.
+
+General Structure:
+<joint name="join_name" type="joint_type">
+    // optional
+    <parent link="parent_link_name"/>
+    <child link="child_link_name"/>
+    
+    // required
+    <axis rpy="r p y" xyz="x y z"/>
+    <origin rpy="r p y" xyz="x y z"/>
+    <limit lower="lower" upper="upper" effort="max_effort" velocity="max_vel">
+    <dynamics damping="damp_coef" friciton="fric_coef">
+</joint>
+
+Types of Joints:
+-> fixed: no motion between links
+-> continuous: rotation about axis, not limit
+-> revolute: rotation about axis, with limits (in radians)
+-> prismatic: translation about axis
+-> floating: 6 Degrees of Freedom (DOF) (3 translation, 3 rotation)
+-> planar: motion on plane (2 translation, 1 rotation)
+
+Parent and Child Link:
+The parent link is the link before the joint and the child link is the link after the joint.
+
+Origin and Axis:
+The origin describes the location of the child frame relative to the parent frame.
+The axis describes the axis of rotation for the joint. 
+
+Dynamics:
+Includes daming expressed in Ns/m (Newtons/meter) and friction (static friction) expressed in N (Newtons).
+
+Limit:
+For revolute and prismatic joints only.
+The lower and upper field are in radians and meters respectively, 
+the effort is the max effor in Nm (Newton meters), and velocity is max velocity (radians/s).
